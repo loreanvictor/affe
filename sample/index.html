@@ -1,0 +1,29 @@
+<style>
+  @import 'https://unpkg.com/nokss'
+</style>
+
+<br><br>
+<main>
+  <div>
+    <textarea id="query">
+export[kind=default]
+property[name=rules]
+> value > object > property > key > *
+    </textarea>
+    <textarea id="code">
+export default [
+  {
+    rules: {
+      semi: "warn",
+      "quotes": ["error", "double"]
+    }
+  }
+]
+    </textarea>
+  </div>
+  <pre></pre>
+</main>
+
+<script src="./index.js" type="module"></script>
+<script src="./tree-view.js" type="module"></script>
+<link rel="stylesheet" href="./index.css">

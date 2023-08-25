@@ -1,0 +1,13 @@
+main {
+  display: flex;
+  gap: 1rem;
+}
+
+main > div {
+  flex-shrink: 0;
+}
+
+textarea {
+  font-family: monospace;
+  --text-area-min-height: 256px;
+}
