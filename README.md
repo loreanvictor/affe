@@ -110,6 +110,6 @@ npm run typecheck
 <br>
 
 <div align="center">
-<img src="./misc/monke-dark.svg#gh-dark-mode-only" width="80px"/>
-<img src="./misc/monke-light.svg#gh-light-mode-only" width="80px"/>
+<img src="./misc/monke-dark.svg#gh-dark-mode-only" width="96px"/>
+<img src="./misc/monke-light.svg#gh-light-mode-only" width="96px"/>
 </div>
