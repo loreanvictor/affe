@@ -1,14 +1,22 @@
 import { from, observe } from 'https://esm.sh/quel'
+import { html } from 'https://esm.sh/rehtm'
 
 import { esselector } from '../src'
 
 
-const result = document.querySelector('pre')
+const result = document.querySelector('#result')
 const code = from(document.querySelector('#code'))
 const query = from(document.querySelector('#query'))
 
-const select = async $ => (await esselector($(code) ?? '')).selectAll
+const select = async $ => {
+  return (await esselector($(code) ?? '')).selectAll
+}
+
 observe($ => {
   const s = $(select)
-  result.innerHTML = s && JSON.stringify(s($(query) ?? ''), null, 2)
+  if (s) {
+    const tree = s($(query))
+    result.innerHTML = ''
+    result.appendChild(html`<tree-view node=${tree} onhighlight=${event => window.highlight(...event.detail)} />`)
+  }
 })

@@ -1,8 +1,13 @@
 <style>
-  @import 'https://unpkg.com/nokss'
+  @import 'https://unpkg.com/nokss';
 </style>
 
 <br><br>
+
+<picture>
+  <source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)">
+  <img src="logo-light.svg">
+</picture>
 <main>
   <div>
     <textarea id="query">
@@ -10,6 +15,7 @@ export[kind=default]
 property[name=rules]
 > value > object > property > key > *
     </textarea>
+    <br>
     <textarea id="code">
 export default [
   {
@@ -21,9 +27,19 @@ export default [
 ]
     </textarea>
   </div>
-  <pre></pre>
+  <div id="result">
+  </div>
 </main>
 
 <script src="./index.js" type="module"></script>
 <script src="./tree-view.js" type="module"></script>
 <link rel="stylesheet" href="./index.css">
+
+<script src="https://unpkg.com/codemirror@5/lib/codemirror.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/codemirror@5/lib/codemirror.css">
+<link rel="stylesheet" href="https://unpkg.com/codemirror@5/theme/material.css">
+<script src="https://unpkg.com/codemirror@5/mode/javascript/javascript.js"></script>
+<script src="https://unpkg.com/codemirror@5/mode/css/css.js"></script>
+<script src="https://unpkg.com/codemirror@5/addon/edit/matchbrackets.js"></script>
+
+<script src="./editors.js" type="module"></script>

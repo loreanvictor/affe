@@ -1,0 +1,92 @@
+:host {
+  cursor: pointer;
+  font-family: monospace;
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  gap: 1rem;
+  border-left: .185rem solid var(--border-color);
+  padding-bottom: 8px;
+  margin-left: 1rem;
+}
+
+li:last-child {
+  border-left: none;
+  margin-left: .78rem;
+  gap: .8rem;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+b {
+  font-weight: normal;
+  color: var(--border-color);
+}
+
+label {
+  opacity: .25;
+}
+
+div {
+  margin-left: 1rem;
+  white-space: nowrap;
+}
+
+details:has(>_>tree-view)>_>div {
+  border-left: .185rem solid var(--border-color);
+  padding-left: 1.5rem;
+}
+
+div:hover > label {
+  opacity: .35;
+}
+
+summary:hover, div:hover {
+  background: var(--hover-color);
+}
+
+span[type='string'] {
+  color: var(--string-color);
+}
+
+span[type='boolean'] {
+  color: var(--boolean-color);
+}
+
+span[type='number'] {
+  color: var(--number-color);
+}
+
+span[type='undefined'] {
+  color: var(--border-color);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --hover-color: #66347F;
+    --border-color: rgba(255, 255, 255, .1);
+    --string-color: #14C38E;
+    --boolean-color: #FF9551;
+    --number-color: #FF4A4A;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :host {
+    --hover-color: #FFA3FD;
+    --border-color: rgba(0, 0, 0, .1);
+    --string-color: #35A29F;
+    --boolean-color: #FF9551;
+    --number-color: #FF4A4A;
+  }
+}

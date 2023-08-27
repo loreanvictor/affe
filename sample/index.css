@@ -3,11 +3,48 @@ main {
   gap: 1rem;
 }
 
-main > div {
-  flex-shrink: 0;
+picture > img {
+  width: calc(
+    (
+      100vw
+      - var(--main-content-max-width)
+    ) / 2
+    - 64px
+  );
+  margin-left: 32px;
+  margin-top: 32px;
+  mix-blend-mode: overlay;
+  position: fixed;
 }
 
-textarea {
-  font-family: monospace;
-  --text-area-min-height: 256px;
+@media (prefers-color-scheme: light) {
+  picture > img {
+    mix-blend-mode: multiply;
+    opacity: 0.15;
+  }
+}
+
+main > div {
+  flex-shrink: 0;
+  flex-grow: 1;
+  flex-basis: 0;
+  overflow: auto;
+}
+
+[role=feed] {
+  width: 100%;
+}
+
+.hovered-code {
+  background: #FFD3A3;
+  color: #000 !important;
+}
+
+#query + .CodeMirror {
+  max-height: 128px;
+  overflow: auto;
+}
+
+.CodeMirror {
+  border-radius: 7px;
 }

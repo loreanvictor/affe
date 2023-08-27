@@ -6,19 +6,19 @@ import { TransformerRule } from '../../transformer'
 
 
 export const rules: TransformerRule[] = [
-  [/Program/, node => ({type: 'program', children: node.body })],
+  [/Program/, node => ({type: 'program', children: node.body, range: node.range })],
 
   // expressions
 
-  [/ThisExpression/, () => ({ type: 'this' })],
+  [/ThisExpression/, node => ({ type: 'this', range: node.range })],
   [/Identifier/, node => ({ ...node, type: 'id' })],
   [/Literal/, node => ({ ...node, type: 'literal' })],
-  [/ArrayExpression/, node => ({ type: 'array', children: node.elements })],
-  [/ObjectExpression/, node => ({ type: 'object', children: node.properties })],
+  [/ArrayExpression/, node => ({ type: 'array', children: node.elements, range: node.range })],
+  [/ObjectExpression/, node => ({ type: 'object', children: node.properties, range: node.range })],
   [/Property/, node => ({...node, type: 'property', name: node.key?.name ?? node.key?.value })],
 
   // exports
-  [/ExportAllDeclaration/, () => ({ type: 'export', kind: 'all' })],
-  [/ExportDefaultDeclaration/, node => ({ type: 'export', kind: 'default', children: [node.declaration] })],
-  [/ExportNamedDeclaration/, node => ({ ...node, type: 'export', kind: 'named', children: [node.declaration] })],
+  [/ExportAllDeclaration/, node => ({ type: 'export', kind: 'all', range: node.range })],
+  [/ExportDefaultDeclaration/, node => ({ type: 'export', kind: 'default', children: [node.declaration], range: node.range })],
+  [/ExportNamedDeclaration/, node => ({ ...node, type: 'export', kind: 'named', children: [node.declaration], range: node.range })],
 ]
