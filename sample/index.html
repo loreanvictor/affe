@@ -20,13 +20,15 @@
   <br><br>
 
   <main>
-    <picture>
-      <source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)">
-      <img src="logo-light.svg">
-    </picture>
+    <a href="https://github.com/loreanvictor/affe">
+      <picture>
+        <source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="logo-light.svg">
+      </picture>
+    </a>
     <p>
-      Use CSS-style queries to select different nodes of the syntax tree. <br>
-      <small>This page is best experienced on Safari, for weird performance reasons.</small>
+      Use <a href="https://github.com/loreanvictor/affe" target="_blank">CSS-style queries</a> to select different nodes of the syntax tree. <br>
+      Investigate the tree to figure out which tags you can use.
     </p>
     <section>
       <div>
@@ -50,6 +52,16 @@ export default [
       <div id="result">
       </div>
     </section>
+    <br>
+    <small>
+      Built with
+      <a href="https://codemirror.net/5/" target="_blank">CodeMirror 5</a>,
+      <a href="https://github.com/loreanvictor/minicomp" target="_blank">minicomp</a>,
+      <a href="https://github.com/loreanvictor/rehtm" target="_blank">rehtm</a> and
+      <a href="https://loreanvictor.github.io/nokss" target="_blank">nokss</a>.
+      <br>
+      This page is best experienced on Safari, as Chrome and Firefox have a heart attack when they want to animate some SVG.
+    </small>
   </main>
 
   <script>

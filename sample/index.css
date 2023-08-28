@@ -55,3 +55,14 @@ section > div:last-child {
   background: #FFD3A3;
   color: #000 !important;
 }
+
+small {
+  max-width: 400px;
+  display: block;
+  opacity: .5;
+  transition: opacity .3s;
+}
+
+small:hover {
+  opacity: 1;
+}
