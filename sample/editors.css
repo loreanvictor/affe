@@ -1,0 +1,33 @@
+#query + .CodeMirror {
+  max-height: 128px;
+  overflow: auto;
+}
+
+.CodeMirror {
+  border-radius: 7px;
+}
+
+.cm-s-material.CodeMirror {
+  background-color: #26323816;
+  -webkit-backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
+  -moz-backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
+  backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
+
+  transition: box-shadow .3s;
+}
+
+@media (prefers-color-scheme: light) {
+  .cm-s-material.CodeMirror {
+    -webkit-backdrop-filter: invert(1) brightness(3) blur(2px);
+    -moz-backdrop-filter: invert(1) brightness(3) blur(2px);
+    backdrop-filter: invert(1) brightness(3) blur(2px);
+  }
+}
+
+.cm-s-material .CodeMirror-gutters {
+  background: #26323816;
+}
+
+.CodeMirror-focused {
+  box-shadow: inset 0 0 0 1px var(--primary-color);
+}

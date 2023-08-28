@@ -1,22 +1,42 @@
-<style>
-  @import 'https://unpkg.com/nokss';
-</style>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/nokss">
+  <script src="./editors.js" type="module"></script>
+  <script src="./index.js" type="module"></script>
+  <script src="./tree-view.js" type="module"></script>
+  <link rel="stylesheet" href="./index.css">
+  
+  <script src="https://unpkg.com/codemirror@5/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/lib/codemirror.css">
+  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/theme/material.css">
+  <script src="https://unpkg.com/codemirror@5/mode/javascript/javascript.js"></script>
+  <script src="https://unpkg.com/codemirror@5/mode/css/css.js"></script>
+  <script src="https://unpkg.com/codemirror@5/addon/edit/matchbrackets.js"></script>
+  
+  
+  <link rel="stylesheet" href="./editors.css">
+</head>
+<body>
+  
+  <br><br>
 
-<br><br>
-
-<picture>
-  <source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)">
-  <img src="logo-light.svg">
-</picture>
-<main>
-  <div>
-    <textarea id="query">
+  <main>
+    <picture>
+      <source srcset="logo-dark.svg" media="(prefers-color-scheme: dark)">
+      <img src="logo-light.svg">
+    </picture>
+    <p>
+      Use CSS-style queries to select different nodes of the syntax tree. <br>
+      <small>This page is best experienced on Safari, for weird performance reasons.</small>
+    </p>
+    <section>
+      <div>
+        <textarea id="query">
 export[kind=default]
 property[name=rules]
 > value > object > property > key > *
-    </textarea>
-    <br>
-    <textarea id="code">
+        </textarea>
+        <br>
+        <textarea id="code">
 export default [
   {
     rules: {
@@ -25,21 +45,16 @@ export default [
     }
   }
 ]
-    </textarea>
-  </div>
-  <div id="result">
-  </div>
-</main>
+        </textarea>
+      </div>
+      <div id="result">
+      </div>
+    </section>
+  </main>
 
-<script src="./index.js" type="module"></script>
-<script src="./tree-view.js" type="module"></script>
-<link rel="stylesheet" href="./index.css">
-
-<script src="https://unpkg.com/codemirror@5/lib/codemirror.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/codemirror@5/lib/codemirror.css">
-<link rel="stylesheet" href="https://unpkg.com/codemirror@5/theme/material.css">
-<script src="https://unpkg.com/codemirror@5/mode/javascript/javascript.js"></script>
-<script src="https://unpkg.com/codemirror@5/mode/css/css.js"></script>
-<script src="https://unpkg.com/codemirror@5/addon/edit/matchbrackets.js"></script>
-
-<script src="./editors.js" type="module"></script>
+  <script>
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      document.body.classList.add('safari');
+    }
+  </script>
+</body>

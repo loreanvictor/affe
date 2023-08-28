@@ -1,5 +1,6 @@
 import { define, useDispatch, onRendered } from 'https://esm.sh/minicomp'
 import { html } from 'https://esm.sh/rehtm'
+import style from './tree-view.css?inline'
 
 
 const bchar = (index, arr) => {
@@ -15,7 +16,11 @@ define('tree-view', ({ node }) => {
   const dispatch = useDispatch('highlight')
   const relay = event => dispatch(event.detail)
 
-  onRendered(host => host.shadowRoot.append(html`<link rel="stylesheet" href="tree-view.css" />`))
+  onRendered(host => {
+    const el = document.createElement('style')
+    el.textContent = style
+    host.shadowRoot.appendChild(el)
+  })
 
   if (Array.isArray(node)) {
     return html`

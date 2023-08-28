@@ -23,8 +23,12 @@ li:last-child {
   gap: .8rem;
 }
 
-summary::-webkit-details-marker {
+summary::-webkit-details-marker{
   display: none;
+}
+
+summary { 
+  list-style: none;
 }
 
 b {

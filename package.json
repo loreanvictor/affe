@@ -14,6 +14,7 @@
     "build-commonjs": "tsc -p conf/typescript/commonjs.json",
     "build-es": "tsc -p conf/typescript/es.json",
     "build": "npm run build-commonjs && npm run build-es",
+    "build:demo": "vite build sample --base /affe",
     "prepack": "npm run build"
   },
   "files": [
