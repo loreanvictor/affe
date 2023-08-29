@@ -75,7 +75,7 @@ for more convenience.
 `affe` provides support for JavaScript/JSX out of the box, but you can easily add support for any other language.
 
 ```js
-import jsx from 'affe'
+import { jsx } from 'affe'
 
 const code = jsx`
   export default ({ name }) => (
