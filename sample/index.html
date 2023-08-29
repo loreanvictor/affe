@@ -1,22 +1,23 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/nokss">
-  <script src="./editors.js" type="module"></script>
-  <script src="./index.js" type="module"></script>
-  <script src="./tree-view.js" type="module"></script>
+  <link rel="preload" href="https://unpkg.com/nokss" as="style">
+  <link rel="stylesheet" href="https://unpkg.com/nokss" media="print" onload="this.media='all'">
+  <script defer src="./index.js" type="module"></script>
+  <script defer src="./tree-view.js" type="module"></script>
   <link rel="stylesheet" href="./index.css">
   
   <script src="https://unpkg.com/codemirror@5/lib/codemirror.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/lib/codemirror.css">
-  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/theme/material.css">
+  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/lib/codemirror.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://unpkg.com/codemirror@5/theme/material.css" media="print" onload="this.media='all'">
   <script src="https://unpkg.com/codemirror@5/mode/javascript/javascript.js"></script>
   <script src="https://unpkg.com/codemirror@5/mode/xml/xml.js"></script>
   <script src="https://unpkg.com/codemirror@5/mode/jsx/jsx.js"></script>
   <script src="https://unpkg.com/codemirror@5/mode/css/css.js"></script>
   <script src="https://unpkg.com/codemirror@5/addon/edit/matchbrackets.js"></script>
+  <script defer src="./editors.js" type="module"></script>
   
   
-  <link rel="stylesheet" href="./editors.css">
+  <link rel="stylesheet" href="./editors.css" media="print" onload="this.media='all'">
 </head>
 <body>
   
