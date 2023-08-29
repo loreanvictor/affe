@@ -1,7 +1,12 @@
 /* global CodeMirror */
 
 const attachEditor = (el, mode) => {
-  const editor = CodeMirror.fromTextArea(el, { mode, lineNumbers: true, theme: 'material', matchBrackets: true })
+  const editor = CodeMirror.fromTextArea(el, {
+    mode,
+    // lineNumbers: true,
+    theme: 'material',
+    matchBrackets: true
+  })
   editor.on('change', () => {
     el.value = editor.getValue()
     const event = new Event('input', {
