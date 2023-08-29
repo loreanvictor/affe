@@ -42,7 +42,7 @@ function _selectable(
       }
     })
 
-  return u(type, props, children.map(child => _selectable(u, child, options)))
+  return u(type, props, children.filter(child => !!child).map(child => _selectable(u, child, options)))
 }
 
 

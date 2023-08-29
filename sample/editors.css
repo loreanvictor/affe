@@ -13,7 +13,7 @@
   -moz-backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
   backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
 
-  transition: box-shadow .3s;
+  transition: background-color .3s;
 }
 
 @media (prefers-color-scheme: light) {
@@ -25,9 +25,24 @@
 }
 
 .cm-s-material .CodeMirror-gutters {
-  background: #26323816;
+  background: #11151dbb;
 }
 
-.CodeMirror-focused {
-  box-shadow: inset 0 0 0 1px var(--primary-color);
+.cm-s-material.CodeMirror.CodeMirror-focused {
+  background-color: #26323848;
+}
+
+@media (prefers-color-scheme: light) {
+  .cm-s-material.CodeMirror.CodeMirror-focused {
+    background-color: #26323884;
+  } 
+}
+
+.hovered-code {
+  background: #FFD3A3;
+  color: #000 !important;
+}
+
+.error-code {
+  border-bottom: 2px solid var(--danger-color);
 }

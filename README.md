@@ -12,35 +12,32 @@
 AST querying for lazy people.
 
 ```js
-import { esselector } from 'affe'
+import { js } from 'affe'
+
+
+const config = await readFile('eslint.config.js', 'utf8')
 
 //
-// 👉 STEP 1: create a selector function
+// 👇 Let's find out which eslint rules are specified
+//    in the config.
 //
-const { select } = await esselector(`
-  export default [
-    {
-      rules: {
-          semi: "error",
-          "prefer-const": "error"
-      }
-    }
-  ]
-`)
-
-//
-// 👉 STEP 2: query the code like you would CSS
-//
-const rule = select(`
-  export[kind=default]
-  property[name=rules]
+const rules = await js(config).selectAll(`
+  export property[name=rules]
   > value > object > property > key > *
 `)
 
-rules.forEach(rule => console.log(rule.name ?? rule.value))
+rules => rules.forEach(
+  rule => console.log(rule.name ?? rule.value)
+)
 // > semi
 // > prefer-const
 ```
+
+<div align="right">
+
+[**▷ DEMO**](https://loreanvictor.github.io/affe/)
+
+</div>
 
 <br>
 
@@ -64,14 +61,39 @@ npm i affe
 Browser / [Deno](https://deno.land):
 
 ```js
-import { selector } from 'https://esm.sh/affe'
+import { js } from 'https://esm.sh/affe'
 ```
 
 <br>
 
 # Usage
 
-> _👷🏽 TODO: look at the example above. to be completed.
+`affe` simplifies _ANY_ syntax tree into a format that can be queried with a CSS-like syntax. It also provides tooling for
+further simplification of ASTs of a specific language
+for more convenience.
+
+`affe` provides support for JavaScript/JSX out of the box, but you can easily add support for any other language.
+
+```js
+import jsx from 'affe'
+
+const code = jsx`
+  export default ({ name }) => (
+    <div>Hello, {name}!</div>
+  )
+`
+
+//
+// 👇 Let's find out the name of the properties
+//    of the exported component.
+//
+const params = await code.select(`
+  export params property key *
+`)
+
+params.forEach(param => console.log(param.name ?? param.value))
+// > name
+```
 
 <br>
 

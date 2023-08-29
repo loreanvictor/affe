@@ -74,6 +74,11 @@ span[type='undefined'] {
   color: var(--border-color);
 }
 
+span.empty {
+  opacity: .25;
+  font-style: italic;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :host {
@@ -81,7 +86,7 @@ span[type='undefined'] {
     --border-color: rgba(255, 255, 255, .1);
     --string-color: #14C38E;
     --boolean-color: #FF9551;
-    --number-color: #FF4A4A;
+    --number-color: #337CCF;
   }
 }
 
@@ -91,6 +96,6 @@ span[type='undefined'] {
     --border-color: rgba(0, 0, 0, .1);
     --string-color: #35A29F;
     --boolean-color: #FF9551;
-    --number-color: #FF4A4A;
+    --number-color: #337CCF;
   }
 }

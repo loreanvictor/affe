@@ -15,7 +15,7 @@ const attachEditor = (el, mode) => {
   return editor
 }
 
-const code = attachEditor(document.querySelector('#code'), 'javascript')
+const code = attachEditor(document.querySelector('#code'), 'jsx')
 
 self.highlight = (start, end) => {
   code.getAllMarks().forEach(mark => mark.clear())
@@ -24,5 +24,11 @@ self.highlight = (start, end) => {
   })
 }
 
+self.error = (err) => {
+  code.getAllMarks().forEach(mark => mark.clear())
+  code.markText(code.posFromIndex(err.index), code.posFromIndex(err.index + 1), {
+    className: 'error-code'
+  })
+}
 
 attachEditor(document.querySelector('#query'), 'css')

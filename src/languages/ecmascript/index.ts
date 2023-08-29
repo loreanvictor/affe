@@ -1,12 +1,34 @@
 export * from './rules'
 
-import * as es from 'esprima'
-import { selector as S } from '../../selector'
-import { transformer as T } from '../../transformer'
+import * as es from 'espree'
+import { tag } from '../../tag'
+import { transformer } from '../../transformer'
+
 import { rules } from './rules'
 
 
-export const transformer = T(rules)
-export const selector = async (code: string) => {
-  return await S(es.parseModule(code, { range: true }), { transformer })
-}
+export const js = tag({
+  parse: async (code: string) => es.parse(
+    code, {
+      range: true,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    }
+  ),
+  transformer: transformer(rules)
+})
+
+
+export const jsx = tag({
+  parse: async (code: string) => es.parse(
+    code, {
+      range: true,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      ecmaFeatures: {
+        jsx: true
+      },
+    }
+  ),
+  transformer: transformer(rules)
+})

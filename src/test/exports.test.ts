@@ -1,10 +1,11 @@
-import { selector, selectable, esselector, estransformer } from '../index'
+import { selector, selectable,
+  js
+} from '../index'
 
 
 test('everything is exported.', () => {
   expect(selectable).toBeDefined()
   expect(selector).toBeDefined()
 
-  expect(esselector).toBeDefined()
-  expect(estransformer).toBeDefined()
+  expect(js).toBeDefined()
 })

@@ -1,9 +1,9 @@
-import { selector } from '../index'
+import { js } from '../index'
 
 
 describe('EcmaScript', () => {
   test('can select a single node', async () => {
-    const { select } = await selector(`
+    const { select } = js`
       export default [
         {
           rules: {
@@ -12,16 +12,16 @@ describe('EcmaScript', () => {
           }
         }
       ]
-    `)
+    `
 
-    const rule = select('export[kind=default] property[name=rules] > value > object > property > key > *')
+    const rule = await select('export[kind=default] property[name=rules] > value > object > property > key > *')
 
     expect(rule).toBeDefined()
     expect(rule!['name']).toEqual('semi')
   })
 
   test('can select all matching nodes.', async () => {
-    const { selectAll } = await selector(`
+    const { selectAll } = js`
       export default [
         {
           rules: {
@@ -36,16 +36,16 @@ describe('EcmaScript', () => {
           }
         }
       ]
-    `)
+    `
 
-    const rules = selectAll(`
+    const rules = (await selectAll(`
       export[kind=default]
       property:has(
         > key
         > :is(id[name=rules], literal[value=rules])
       )
       > value > object > property > key > *
-    `).map(node => node['value'] ?? node['name'])
+    `)).map(node => node['value'] ?? node['name'])
 
     expect(rules).toEqual(['semi', 'prefer-const', 'curly', 'no-unused-var'])
   })

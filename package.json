@@ -1,6 +1,6 @@
 {
   "name": "affe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "AST querying for lazy people",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",
@@ -37,7 +37,6 @@
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
     "@sindresorhus/tsconfig": "^3.0.1",
-    "@types/esprima": "^4.0.3",
     "@types/jest": "^29.5.3",
     "@types/node": "^20.4.2",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
@@ -54,7 +53,7 @@
     "vite": "^4.4.4"
   },
   "dependencies": {
-    "esprima": "^4.0.1",
+    "espree": "^9.6.1",
     "unist-builder": "^4.0.0",
     "unist-util-select": "^5.0.0"
   }

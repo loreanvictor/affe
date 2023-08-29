@@ -41,15 +41,15 @@ define('tree-view', ({ node }) => {
       }
     }
 
+    const props = Object.entries(node).filter(([key]) => key !== 'type' && key !== 'range' && key !== 'children')
+
     return html`
       <details>
         <summary onmouseover=${highlight}>
          ${node.type || ''}
         </summary>
           ${
-  Object.entries(node)
-    .filter(([key]) => key !== 'type' && key !== 'range' && key !== 'children')
-    .map(([key, value]) => html`
+  props.map(([key, value]) => html`
               <div>
               <label>${key}:</label> <span type=${typeof value}>${value ?? '??'}</span>
               </div>
@@ -58,6 +58,10 @@ define('tree-view', ({ node }) => {
   (node.children && node.children.length > 0) ?
     html`<tree-view node=${node.children} onhighlight=${relay}></tree-view>`
     : '' }
+        ${
+  node.children && node.children.length === 0 && props.length === 0
+    ? html`<span class="empty">empty</span>`
+    : ''}
       </details>
     `
   }
