@@ -3,7 +3,7 @@
 const attachEditor = (el, mode) => {
   const editor = CodeMirror.fromTextArea(el, {
     mode,
-    // lineNumbers: true,
+    lineNumbers: true,
     theme: 'material',
     matchBrackets: true
   })
