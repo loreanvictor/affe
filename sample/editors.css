@@ -12,8 +12,6 @@
   -webkit-backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
   -moz-backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
   backdrop-filter: blur(4px) brightness(1.1) saturate(1.1);
-
-  transition: background-color .3s;
 }
 
 @media (prefers-color-scheme: light) {
