@@ -7,6 +7,8 @@ import { TransformerRule } from '../../transformer'
 
 export const rules: TransformerRule[] = [
   [/Program/, ({ body, ...node }) => ({ ...node, type: 'program', children: body })],
+  [/BlockStatement/, ({ body, ...node }) => ({ ...node, type: 'block', children: body })],
+  [/ExpressionStatement/, ({ expression, ...node }) => ({ ...node, type: 'expression', children: [expression] })],
 
   // expressions
 
@@ -22,6 +24,18 @@ export const rules: TransformerRule[] = [
       ({ ...node, type: 'object', children: properties })
   ],
   [/Property/, node => ({...node, type: 'property', name: node.key?.name ?? node.key?.value })],
+  [/FunctionExpression/,
+    ({ id, ...node }) =>
+      ({ ...node, type: 'function', kind: 'expression', name: id?.name, children: id ? [id] : [] })
+  ],
+
+  // declarations
+  [/VariableDeclaration/, ({ declarations, ...node}) => ({ ...node, type: 'var', children: declarations })],
+  [/VariableDeclarator/, node => ({ ...node, type: 'declarator', name: node?.id?.name  })],
+  [/FunctionDeclaration/,
+    ({ id, ...node }) =>
+      ({ ...node, type: 'function', kind: 'declaration', name: id?.name, children: id ? [id] : [] })
+  ],
 
   // exports
   [/ExportAllDeclaration/, node =>
