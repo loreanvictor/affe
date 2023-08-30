@@ -1,6 +1,6 @@
 {
   "name": "affe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "AST querying for lazy people",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",

@@ -27,7 +27,10 @@ const rules = await js(config).selectAll(`
 `)
 
 rules => rules.forEach(
-  rule => console.log(rule.name ?? rule.value)
+  async rule => {
+    const node = await rule.node()
+    console.log(node.name ?? node.value)
+  }
 )
 // > semi
 // > prefer-const
@@ -91,7 +94,10 @@ const params = await code.select(`
   export params property key *
 `)
 
-params.forEach(param => console.log(param.name ?? param.value))
+params.forEach(async param => {
+  const node = await param.node()
+  console.log(node.name ?? node.value)
+})
 // > name
 ```
 

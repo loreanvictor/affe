@@ -14,7 +14,7 @@ describe('EcmaScript', () => {
       ]
     `
 
-    const rule = await select('export[kind=default] property[name=rules] > value > object > property > key > *')
+    const rule = await select('export[kind=default] property[name=rules] > value > object > property > key > *').node()
 
     expect(rule).toBeDefined()
     expect(rule!['name']).toEqual('semi')
@@ -38,14 +38,19 @@ describe('EcmaScript', () => {
       ]
     `
 
-    const rules = (await selectAll(`
-      export[kind=default]
-      property:has(
-        > key
-        > :is(id[name=rules], literal[value=rules])
+    const rules = await Promise.all(
+      (await selectAll(`
+        export[kind=default]
+        property:has(
+          > key
+          > :is(id[name=rules], literal[value=rules])
+        )
+        > value > object > property > key > *
+      `)
       )
-      > value > object > property > key > *
-    `)).map(node => node['value'] ?? node['name'])
+        .map(async selected => await selected.node())
+        .map(async node => (await node)!['name'] ?? (await node)!['value'])
+    )
 
     expect(rules).toEqual(['semi', 'prefer-const', 'curly', 'no-unused-var'])
   })

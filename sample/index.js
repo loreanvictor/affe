@@ -14,8 +14,9 @@ observe(async $ => {
   const { selectAll } = $(parsed)
   try {
     const tree = await selectAll($(query))
+    const node = await Promise.all(tree.map(selected => selected.node()))
     result.innerHTML = ''
-    result.appendChild(html`<tree-view node=${tree} onhighlight=${event => window.highlight(...event.detail)} />`)
+    result.appendChild(html`<tree-view node=${node} onhighlight=${event => window.highlight(...event.detail)} />`)
   } catch(err) {
     window.error(err)
     result.innerHTML = ''
