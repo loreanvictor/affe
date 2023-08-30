@@ -13,7 +13,7 @@ export const rules: TransformerRule[] = [
   // expressions
 
   [/ThisExpression/, node => ({ ...node, type: 'this' })],
-  [/Identifier/, node => ({ ...node, type: 'id' })],
+  [/Identifier/, node => ({ ...node, type: 'identifier' })],
   [/Literal/, node => ({ ...node, type: 'literal' })],
   [/ArrayExpression/,
     ({ elements, ...node }) =>
@@ -28,6 +28,11 @@ export const rules: TransformerRule[] = [
     ({ id, ...node }) =>
       ({ ...node, type: 'function', kind: 'expression', name: id?.name, children: id ? [id] : [] })
   ],
+
+  // patterns
+
+  [/ArrayPattern/, ({ elements, ...node }) => ({ ...node, type: 'pattern', kind: 'array', children: elements })],
+  [/ObjectPattern/, ({ properties, ...node }) => ({ ...node, type: 'pattern', kind: 'object', children: properties })],
 
   // declarations
   [/VariableDeclaration/, ({ declarations, ...node}) => ({ ...node, type: 'var', children: declarations })],
