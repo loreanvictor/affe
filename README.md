@@ -90,14 +90,12 @@ const code = jsx`
 // 👇 Let's find out the name of the properties
 //    of the exported component.
 //
-const params = await code.select(`
+const param = await code.select(`
   export params property key *
 `)
 
-params.forEach(async param => {
-  const node = await param.node()
-  console.log(node.name ?? node.value)
-})
+const node = await param.node()
+console.log(node.name ?? node.value)
 // > name
 ```
 
