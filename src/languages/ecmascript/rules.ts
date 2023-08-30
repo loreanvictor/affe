@@ -24,10 +24,26 @@ export const rules: TransformerRule[] = [
   [/Property/, node => ({...node, type: 'property', name: node.key?.name ?? node.key?.value })],
 
   // exports
-  [/ExportAllDeclaration/, node => ({ ...node, type: 'export', kind: 'all' })],
+  [/ExportAllDeclaration/, node =>
+    ({ ...node, type: 'export', kind: 'all', from: node.source?.value })
+  ],
   [/ExportDefaultDeclaration/,
     ({ declaration, ...node }) =>
       ({ ...node, type: 'export', kind: 'default', children: [declaration] })
   ],
-  [/ExportNamedDeclaration/, node => ({ ...node, type: 'export', kind: 'named', children: [node.declaration], range: node.range })],
+  [/ExportNamedDeclaration/,
+    ({declaration, ...node }) =>
+      ({ ...node, type: 'export', kind: 'named', children: [declaration], from: node.source?.value })
+  ],
+  [/ExportSpecifier/, (node) => ({ ...node, type: 'specifier' })],
+
+  // imports
+  [/ImportDeclaration/,
+    ({ specifiers, ...node}) => ({
+      ...node, type: 'import', children: specifiers,
+      from: node.source.value
+    })],
+  [/ImportSpecifier/, node => ({ ...node, type: 'specifier' })],
+  [/ImportDefaultSpecifier/, node => ({ ...node, type: 'specifier', kind: 'default' })],
+  [/ImportNamespaceSpecifier/, node => ({ ...node, type: 'specifier', kind: 'namespace' })],
 ]

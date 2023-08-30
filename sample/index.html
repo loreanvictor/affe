@@ -35,20 +35,18 @@
     <section>
       <div>
         <textarea id="query">
-export[kind=default]
-property[name=rules]
-> value > object > property > key > *
+program
         </textarea>
         <br>
         <textarea id="code">
-export default [
-  {
-    rules: {
-      semi: "warn",
-      "quotes": ["error", "double"]
-    }
-  }
-]
+const m = 2
+const y = false
+
+export default 42
+export const a = 1
+export {m, y as z}
+export { default as x } from 'x'
+export * from 'x'
         </textarea>
       </div>
       <div id="result">
