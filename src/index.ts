@@ -1,5 +1,6 @@
 export * from './types'
 export * from './selectable'
 export * from './selector'
+export * from './tag'
+export * from './each'
 export * from './languages'
-

@@ -12,7 +12,7 @@
 AST querying for lazy people.
 
 ```js
-import { js } from 'affe'
+import { js, each } from 'affe'
 
 
 const config = await readFile('eslint.config.js', 'utf8')
@@ -21,17 +21,13 @@ const config = await readFile('eslint.config.js', 'utf8')
 // 👇 Let's find out which eslint rules are specified
 //    in the config.
 //
-const rules = await js(config).selectAll(`
+const selected = await js(config).selectAll(`
   export property[name=rules]
   > value > object > property > key > *
 `)
 
-rules => rules.forEach(
-  async rule => {
-    const node = await rule.node()
-    console.log(node.name ?? node.value)
-  }
-)
+const rules = await each(selected, node => node.name ?? node.value)
+console.log(rules)
 // > semi
 // > prefer-const
 ```
@@ -92,10 +88,9 @@ const code = jsx`
 //
 const param = await code.select(`
   export params property key *
-`)
+`).node()
 
-const node = await param.node()
-console.log(node.name ?? node.value)
+console.log(param.name ?? param.value)
 // > name
 ```
 

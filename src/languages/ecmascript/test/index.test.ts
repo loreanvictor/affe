@@ -1,3 +1,4 @@
+import { each } from '../../../each'
 import { js } from '../index'
 
 
@@ -38,8 +39,7 @@ describe('EcmaScript', () => {
       ]
     `
 
-    const rules = await Promise.all(
-      (await selectAll(`
+    const selected = await selectAll(`
         export[kind=default]
         property:has(
           > key
@@ -47,10 +47,8 @@ describe('EcmaScript', () => {
         )
         > value > object > property > key > *
       `)
-      )
-        .map(async selected => await selected.node())
-        .map(async node => (await node)!['name'] ?? (await node)!['value'])
-    )
+
+    const rules = await each(selected, node => node['name'] ?? node['value'])
 
     expect(rules).toEqual(['semi', 'prefer-const', 'curly', 'no-unused-var'])
   })
