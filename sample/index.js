@@ -1,14 +1,27 @@
-import { from, observe } from 'https://esm.sh/quel'
+import { from, observe, Subject } from 'https://esm.sh/quel'
 import { html } from 'https://esm.sh/rehtm'
 
-import { jsx } from '../src'
+import { jsx, js, tag } from '../src'
 
+
+const raw = tag({ parse: async code => JSON.parse(code) })
 
 const result = document.querySelector('#result')
 const code = from(document.querySelector('#code'))
 const query = from(document.querySelector('#query'))
 
-const parsed = $ => jsx($(code) ?? '')
+const parser = new Subject()
+const parsers = { jsx, js, raw }
+
+parser.set(jsx)
+
+const parsed = $ => $(parser)($(code) ?? '')
+
+document.querySelectorAll('[data-parser]').forEach(element => {
+  element.addEventListener('click', event => {
+    parser.set(parsers[event.target.dataset.parser])
+  })
+})
 
 observe(async $ => {
   const { selectAll } = $(parsed)

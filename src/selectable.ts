@@ -24,31 +24,35 @@ function _selectable(
   const target = transformer(tree)
   const kept = keep(tree)
 
-  const type = target.type
-  const props: Props = {}
-  const children = [...(target.children ?? [])]
+  if (typeof target === 'object') {
+    const type = target.type
+    const props: Props = {}
+    const children = [...(target.children ?? [])]
 
-  Object.entries(target)
-    .filter(([key]) => key !== 'type' && key !== 'children')
-    .forEach(([key, value]) => {
-      if (kept.includes(key) || typeof value !== 'object') {
-        props[key] = value
-      }
-      else {
-        if (value) {
-          children.push({
-            type: key,
-            ...(
-              value['type'] ? { children: [value] } :
-                Array.isArray(value) ? { children: value } :
-                  value
-            )
-          })
+    Object.entries(target)
+      .filter(([key]) => key !== 'type' && key !== 'children')
+      .forEach(([key, value]) => {
+        if (kept.includes(key) || typeof value !== 'object') {
+          props[key] = value
         }
-      }
-    })
+        else {
+          if (value) {
+            children.push({
+              type: key,
+              ...(
+                value['type'] ? { children: [value] } :
+                  Array.isArray(value) ? { children: value } :
+                    value
+              )
+            })
+          }
+        }
+      })
 
-  return u(type, props, children.filter(child => !!child).map(child => _selectable(u, child, options)))
+    return u(type, props, children.filter(child => !!child).map(child => _selectable(u, child, options)))
+  } else {
+    return u('node', { value: target })
+  }
 }
 
 

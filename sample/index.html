@@ -48,6 +48,12 @@ export {m, y as z}
 export { default as x } from 'x'
 export * from 'x'
         </textarea>
+        <br/>
+        <menu role="radiogroup">
+          <button role="radio" data-parser="jsx" aria-checked="true">JSX</button>
+          <button role="radio" data-parser="js">JS</button>
+          <button role="radio" data-parser="raw">raw</button>
+        </menu>
       </div>
       <div id="result">
       </div>
@@ -68,5 +74,15 @@ export * from 'x'
     if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
       document.body.classList.add('safari');
     }
+  </script>
+  <script>
+    document.querySelectorAll('[role="radiogroup"]').forEach(group => {
+    group.querySelectorAll('button, [role="radio"]').forEach(radio => {
+      radio.addEventListener('click', () => {
+        group.querySelectorAll('button, [role="radio"]').forEach(r => r.setAttribute('aria-checked', false))
+        radio.setAttribute('aria-checked', true)
+      })
+    })
+  })
   </script>
 </body>

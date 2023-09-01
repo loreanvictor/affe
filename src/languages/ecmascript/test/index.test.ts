@@ -42,8 +42,10 @@ describe('EcmaScript', () => {
     const selected = await selectAll(`
         export[kind=default]
         property:has(
+
+
           > key
-          > :is(id[name=rules], literal[value=rules])
+          > :is(identifier[name=rules], literal[value=rules])
         )
         > value > object > property > key > *
       `)
