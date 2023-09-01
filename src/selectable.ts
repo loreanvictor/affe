@@ -35,15 +35,14 @@ function _selectable(
         props[key] = value
       }
       else {
-        if (value && value['type']) {
+        if (value) {
           children.push({
             type: key,
-            children: Array.isArray(value) ? value : [value]
-          })
-        } else {
-          children.push({
-            type: key,
-            ...value
+            ...(
+              value['type'] ? { children: [value] } :
+                Array.isArray(value) ? { children: value } :
+                  value
+            )
           })
         }
       }

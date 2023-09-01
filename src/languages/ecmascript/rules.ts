@@ -51,8 +51,8 @@ export const rules: TransformerRule[] = [
       ({ ...node, type: 'export', kind: 'default', children: [declaration] })
   ],
   [/ExportNamedDeclaration/,
-    ({declaration, ...node }) =>
-      ({ ...node, type: 'export', kind: 'named', children: [declaration], from: node.source?.value })
+    ({declaration, specifiers, ...node }) =>
+      ({ ...node, type: 'export', kind: 'named', children: [declaration, ...specifiers], from: node.source?.value })
   ],
   [/ExportSpecifier/, (node) => ({ ...node, type: 'specifier' })],
 
