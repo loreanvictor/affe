@@ -25,7 +25,7 @@ function _selectable(
   const kept = keep(tree)
 
   if (typeof target === 'object') {
-    const type = target.type
+    const type = target.type ?? 'node'
     const props: Props = {}
     const children = [...(target.children ?? [])]
 
