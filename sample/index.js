@@ -1,7 +1,7 @@
 import { from, observe, Subject } from 'https://esm.sh/quel'
 import { html } from 'https://esm.sh/rehtm'
 
-import { jsx, js, tag } from '../src'
+import { jsx, js, tag, pipe, select, all } from '../src'
 
 
 const raw = tag({ parse: async code => JSON.parse(code) })
@@ -24,10 +24,13 @@ document.querySelectorAll('[data-parser]').forEach(element => {
 })
 
 observe(async $ => {
-  const { selectAll } = $(parsed)
   try {
-    const tree = await selectAll($(query))
-    const node = await Promise.all(tree.map(selected => selected.node()))
+    const node = await pipe(
+      $(parsed),
+      select($(query)),
+      all
+    )
+
     result.innerHTML = ''
     result.appendChild(html`<tree-view node=${node} onhighlight=${event => window.highlight(...event.detail)} />`)
   } catch(err) {

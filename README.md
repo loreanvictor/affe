@@ -12,7 +12,7 @@
 AST querying for lazy people.
 
 ```js
-import { js, each } from 'affe'
+import { js, pipe, select, all } from 'affe'
 
 
 const config = await readFile('eslint.config.js', 'utf8')
@@ -21,12 +21,15 @@ const config = await readFile('eslint.config.js', 'utf8')
 // 👇 Let's find out which eslint rules are specified
 //    in the config.
 //
-const selected = await js(config).selectAll(`
-  export property[name=rules]
-  > value > object > property > key > *
-`)
+const rules = await pipe(
+  js(config),
+  select(`
+    export property[name=rules]
+    > value > object > property > key > *
+  `),
+  all
+)
 
-const rules = await each(selected, node => node.name ?? node.value)
 console.log(rules)
 // > semi
 // > prefer-const
@@ -74,11 +77,11 @@ for more convenience.
 `affe` provides support for JavaScript/JSX out of the box, but you can easily add support for any other language.
 
 ```js
-import { jsx } from 'affe'
+import { jsx, pipe, select, pick } from 'affe'
 
 const code = jsx`
-  export default ({ name }) => (
-    <div>Hello, {name}!</div>
+  export default ({ name, style }) => (
+    <div className={style}>Hello, {name}!</div>
   )
 `
 
@@ -86,12 +89,14 @@ const code = jsx`
 // 👇 Let's find out the name of the properties
 //    of the exported component.
 //
-const param = await code.select(`
-  export params property key *
-`).node()
+const params = pipe(
+  code,
+  select('export params property key *'),
+  pick(node => node.name ?? node.value)
+)
 
-console.log(param.name ?? param.value)
-// > name
+console.log(params)
+// > [name, style]
 ```
 
 <br>

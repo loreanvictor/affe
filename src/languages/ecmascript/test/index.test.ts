@@ -1,57 +1,72 @@
-import { each } from '../../../each'
-import { js } from '../index'
+import { pipe, first, pick } from '../../../util'
+import { select } from '../../../select'
+import { js, jsx } from '../index'
 
 
 describe('EcmaScript', () => {
   test('can select a single node', async () => {
-    const { select } = js`
-      export default [
-        {
-          rules: {
-              semi: "error",
-              "prefer-const": "error"
+    const rule = await pipe(
+      js`
+        export default [
+          {
+            rules: {
+                semi: "error",
+                "prefer-const": "error"
+            }
           }
-        }
-      ]
-    `
-
-    const rule = await select('export[kind=default] property[name=rules] > value > object > property > key > *').node()
+        ]
+      `,
+      select('export[kind=default] property[name=rules] > value > object > property > key > *'),
+      first
+    )
 
     expect(rule).toBeDefined()
     expect(rule!['name']).toEqual('semi')
   })
 
   test('can select all matching nodes.', async () => {
-    const { selectAll } = js`
-      export default [
-        {
-          rules: {
-              semi: "error",
-              "prefer-const": "error"
+    const rules = await pipe(
+      js`
+        export default [
+          {
+            rules: {
+                semi: "error",
+                "prefer-const": "error"
+            }
+          },
+          {
+            rules: {
+              curly: "error",
+              "no-unused-var": "warn"
+            }
           }
-        },
-        {
-          rules: {
-            curly: "error",
-            "no-unused-var": "warn"
-          }
-        }
-      ]
-    `
-
-    const selected = await selectAll(`
+        ]
+      `,
+      select(`
         export[kind=default]
         property:has(
-
-
           > key
           > :is(identifier[name=rules], literal[value=rules])
         )
         > value > object > property > key > *
-      `)
-
-    const rules = await each(selected, node => node['name'] ?? node['value'])
+      `),
+      pick(node => node['name'] ?? node['value'])
+    )
 
     expect(rules).toEqual(['semi', 'prefer-const', 'curly', 'no-unused-var'])
+  })
+
+  test('works with jsx', async () => {
+    const params = await pipe(
+      jsx`
+        export default ({name, style}) => (
+          <div className={style}>{name}</div>
+        )
+      `,
+      select('export params property key *'),
+      pick(node => node['name'] ?? node['value'])
+    )
+
+    expect(params).toEqual(['name', 'style'])
   })
 })

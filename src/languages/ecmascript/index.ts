@@ -15,7 +15,8 @@ export const js = tag({
       sourceType: 'module',
     }
   ),
-  transformer: transformer(rules)
+  transformer: transformer(rules),
+  meta: {},
 })
 
 
@@ -30,5 +31,6 @@ export const jsx = tag({
       },
     }
   ),
-  transformer: transformer(rules)
+  transformer: transformer(rules),
+  meta: {},
 })

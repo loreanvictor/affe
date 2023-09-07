@@ -53,6 +53,7 @@
     "vite": "^4.4.4"
   },
   "dependencies": {
+    "callbag-pipe": "^1.2.0",
     "espree": "^9.6.1",
     "unist-builder": "^4.0.0",
     "unist-util-select": "^5.0.0"
