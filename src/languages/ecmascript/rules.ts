@@ -39,7 +39,7 @@ export const rules: TransformerRule[] = [
   [/VariableDeclarator/, node => ({ ...node, type: 'declarator', name: node?.id?.name  })],
   [/FunctionDeclaration/,
     ({ id, ...node }) =>
-      ({ ...node, type: 'function', kind: 'declaration', name: id?.name, children: id ? [id] : [] })
+      ({ id, ...node, type: 'function', kind: 'declaration', name: id?.name })
   ],
 
   // exports

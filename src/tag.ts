@@ -3,25 +3,25 @@ import { query, BuildQueryOptions } from './query'
 
 
 export interface FromCode { code: string }
-export type LanguageTag = (str: TemplateStringsArray | string, ...args: any[]) => Query<FromCode>
-export interface BuildLanguageTagOptions extends BuildQueryOptions {
+export type LanguageTag<Meta> = (str: TemplateStringsArray | string, ...args: any[]) => Query<FromCode & Meta>
+export interface BuildLanguageTagOptions<Meta={}> extends BuildQueryOptions<Meta> {
   parse: (code: string) => Promise<any>,
 }
 
 
-function _tag(options: BuildLanguageTagOptions): (code: string) => Query<FromCode> {
+function _tag<Meta>(options: BuildLanguageTagOptions<Meta>): (code: string) => Query<FromCode & Meta> {
   return (code: string) => {
     return query(
       () => options.parse(code), {
         ...options,
-        meta: { code }
+        meta: { ...options.meta, code }
       }
     )
   }
 }
 
 
-export function tag(options: BuildLanguageTagOptions): LanguageTag {
+export function tag<Meta={}>(options: BuildLanguageTagOptions<Meta>): LanguageTag<Meta> {
   const factory = _tag(options)
 
   return (str: TemplateStringsArray | string, ...args: any[]) => {

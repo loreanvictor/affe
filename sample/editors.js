@@ -17,6 +17,20 @@ const attachEditor = (el, mode) => {
     editor.getAllMarks().forEach(mark => mark.clear())
   })
 
+  editor.on('cursorActivity', () => {
+    const cursor = code.getCursor()
+    const index = code.indexFromPos(cursor)
+    const event = new Event('cursor', {
+      'bubbles': true,
+      'cancelable': true
+    })
+    event.index = index
+    event.line = cursor.line + 1
+    event.ch = cursor.ch + 1
+    el.dispatchEvent(event)
+    editor.getAllMarks().forEach(mark => mark.clear())
+  })
+
   return editor
 }
 

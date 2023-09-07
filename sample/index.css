@@ -2,12 +2,6 @@
   --main-content-max-width: 1280px;
 }
 
-@media (max-width: 1280px) {
-  :root {
-    --main-content-margin: calc(var(--spacing) * 2);
-  }
-}
-
 body {
   background-attachment: fixed;
 }
@@ -35,7 +29,7 @@ picture > img {
 }
 
 section {
-  --section-spacing: 3rem;
+  --section-spacing: 0rem;
   background: none;
   display: flex;
   gap: 1rem;
@@ -78,4 +72,31 @@ small:hover {
 
 .error {
   color: var(--danger-color);
+}
+
+#cursor {
+  font-size: var(--small-font-size);
+  opacity: .12;
+  float: right;
+  margin-top: -24px;
+  margin-right: 4px;
+}
+
+#result {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --main-content-margin: calc(var(--spacing) * 2);
+  }
+
+  small {
+    display: none;
+  }
+
+  #result {
+    max-height: none;
+  }
 }

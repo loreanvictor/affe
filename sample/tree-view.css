@@ -54,6 +54,10 @@ div:hover > label {
   opacity: .35;
 }
 
+summary.hovered {
+  color: var(--highlight-color); 
+}
+
 summary:hover, div:hover {
   background: var(--hover-color);
 }
@@ -83,6 +87,7 @@ span.empty {
 @media (prefers-color-scheme: dark) {
   :host {
     --hover-color: #66347F;
+    --highlight-color: #F6635C;
     --border-color: rgba(255, 255, 255, .1);
     --string-color: #14C38E;
     --boolean-color: #FF9551;
@@ -93,6 +98,7 @@ span.empty {
 @media (prefers-color-scheme: light) {
   :host {
     --hover-color: #FFA3FD;
+    --highlight-color: #C23373;
     --border-color: rgba(0, 0, 0, .1);
     --string-color: #35A29F;
     --boolean-color: #FF9551;
