@@ -33,6 +33,7 @@ section {
   background: none;
   display: flex;
   gap: 1rem;
+  height: calc(100vh - 192px);
 }
 
 section > div {
@@ -83,7 +84,7 @@ small:hover {
 }
 
 #result {
-  max-height: 70vh;
+  max-height: 100%;
   overflow: auto;
 }
 
@@ -91,12 +92,18 @@ small:hover {
   :root {
     --main-content-margin: calc(var(--spacing) * 2);
   }
+}
 
+@media (max-width: 800px) {
   small {
     display: none;
   }
 
   #result {
     max-height: none;
+  }
+
+  section {
+    height: auto;
   }
 }

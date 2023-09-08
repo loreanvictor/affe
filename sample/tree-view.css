@@ -1,6 +1,9 @@
 :host {
+  display: block;
   cursor: pointer;
   font-family: monospace;
+  flex-grow: 1;
+  padding-right: 0.5rem;
 }
 
 ul {
@@ -55,7 +58,11 @@ div:hover > label {
 }
 
 summary.hovered {
-  color: var(--highlight-color); 
+  color: var(--highlight-color);
+}
+
+details.hovered {
+  background: var(--highlight-gradient-step);
 }
 
 summary:hover, div:hover {
@@ -87,7 +94,8 @@ span.empty {
 @media (prefers-color-scheme: dark) {
   :host {
     --hover-color: #66347F;
-    --highlight-color: #F6635C;
+    --highlight-color: #FFD371;
+    --highlight-gradient-step: rgba(255, 255, 255, 0.005);
     --border-color: rgba(255, 255, 255, .1);
     --string-color: #14C38E;
     --boolean-color: #FF9551;
@@ -99,6 +107,7 @@ span.empty {
   :host {
     --hover-color: #FFA3FD;
     --highlight-color: #C23373;
+    --highlight-gradient-step: rgba(0, 0, 0, 0.005);
     --border-color: rgba(0, 0, 0, .1);
     --string-color: #35A29F;
     --boolean-color: #FF9551;

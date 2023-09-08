@@ -1,5 +1,5 @@
-import { from, observe, Subject } from 'https://esm.sh/quel'
-import { html } from 'https://esm.sh/rehtm'
+import { from, observe, Subject } from 'https://esm.sh/quel?bundle'
+import { html } from 'https://esm.sh/rehtm?bundle'
 
 import { jsx, js, tag, pipe, select, all } from '../src'
 
