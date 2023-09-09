@@ -1,5 +1,5 @@
-import { from, observe, Subject } from 'https://esm.sh/quel?bundle'
-import { html } from 'https://esm.sh/rehtm?bundle'
+import { from, observe, Subject } from 'https://esm.sh/quel'
+import { html } from 'https://esm.sh/rehtm'
 
 import { jsx, js, tag, pipe, select, all } from '../src'
 
@@ -30,7 +30,7 @@ observe(async $ => {
     const node = await pipe(
       $(parsed),
       select($(query)),
-      all
+      all(),
     )
 
     result.innerHTML = ''

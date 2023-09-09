@@ -1,4 +1,4 @@
-import { pipe, first, pick } from '../../../util'
+import { pipe, first, pick, all } from '../../../util'
 import { select } from '../../../select'
 import { js, jsx } from '../index'
 
@@ -17,7 +17,7 @@ describe('EcmaScript', () => {
         ]
       `,
       select('export[kind=default] property[name=rules] > value > object > property > key > *'),
-      first
+      first(),
     )
 
     expect(rule).toBeDefined()
@@ -50,7 +50,8 @@ describe('EcmaScript', () => {
         )
         > value > object > property > key > *
       `),
-      pick(node => node['name'] ?? node['value'])
+      pick(node => node['name'] ?? node['value']),
+      all(),
     )
 
     expect(rules).toEqual(['semi', 'prefer-const', 'curly', 'no-unused-var'])
@@ -64,7 +65,8 @@ describe('EcmaScript', () => {
         )
       `,
       select('export params property key *'),
-      pick(node => node['name'] ?? node['value'])
+      pick(node => node['name'] ?? node['value']),
+      all(),
     )
 
     expect(params).toEqual(['name', 'style'])

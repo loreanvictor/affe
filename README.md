@@ -27,7 +27,7 @@ const rules = await pipe(
     export property[name=rules]
     > value > object > property > key > *
   `),
-  all
+  all(),
 )
 
 console.log(rules)
@@ -77,7 +77,7 @@ for more convenience.
 `affe` provides support for JavaScript/JSX out of the box, but you can easily add support for any other language.
 
 ```js
-import { jsx, pipe, select, pick } from 'affe'
+import { jsx, pipe, select, pick, all } from 'affe'
 
 const code = jsx`
   export default ({ name, style }) => (
@@ -92,7 +92,8 @@ const code = jsx`
 const params = pipe(
   code,
   select('export params property key *'),
-  pick(node => node.name ?? node.value)
+  pick(node => node.name ?? node.value),
+  all(),
 )
 
 console.log(params)

@@ -4,20 +4,47 @@ import { Node, Query } from './types'
 
 export const pipe = P
 
-export function pick<T>(fn: (n: Node) => T): <Meta>(q: Query<Meta>) => Promise<T[]> {
-  return async <Meta>(q: Query<Meta>) => {
-    const nodes = await q.resolve()
+export function pick<T>(fn: (n: Node) => T): <Meta>(q: Query<Meta>) => Query<Meta, T> {
+  return <Meta>(q: Query<Meta>) => ({
+    ...q,
+    resolve: async () => {
+      const resolved = await q.resolve()
 
-    return nodes.map(fn)
+      return resolved.map(fn)
+    }
+  })
+}
+
+export function first() {
+  return async <Meta, Out>(query: Query<Meta, Out>) => {
+    const resolved = await query.resolve()
+
+    return resolved[0]
   }
 }
 
-export async function first<Meta>(query: Query<Meta>) {
-  const resolved = await query.resolve()
+export function last() {
+  return async <Meta, Out>(query: Query<Meta, Out>) => {
+    const resolved = await query.resolve()
 
-  return resolved[0]
+    return resolved[resolved.length - 1]
+  }
 }
 
-export function all<T>(query: Query<T>) {
-  return query.resolve()
+export function nth(n: number) {
+  return async <Meta, Out>(query: Query<Meta, Out>) => {
+    const resolved = await query.resolve()
+
+    if (n < 0) {
+      return resolved[resolved.length + n]
+    } else {
+      return resolved[n - 1]
+    }
+  }
+}
+
+export function all() {
+  return async <Meta, Out>(query: Query<Meta, Out>) => {
+    return query.resolve()
+  }
 }

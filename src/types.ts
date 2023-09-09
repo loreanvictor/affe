@@ -4,7 +4,7 @@ export interface Node extends Props {
   children?: Node[]
 }
 
-export type Query<Meta> = {
-  resolve: () => Promise<Node[]>
+export type Query<Meta, Out=Node> = {
+  resolve: () => Promise<Out[]>
   meta: Meta
 }

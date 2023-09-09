@@ -1,5 +1,5 @@
-import { observe } from 'https://esm.sh/quel?bundle'
-import { onConnected, onDisconnected } from 'https://esm.sh/minicomp?bundle'
+import { observe } from 'https://esm.sh/quel'
+import { onConnected, onDisconnected } from 'https://esm.sh/minicomp'
 
 
 export function useObservation(...args) {

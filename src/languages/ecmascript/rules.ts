@@ -26,7 +26,7 @@ export const rules: TransformerRule[] = [
   [/Property/, node => ({...node, type: 'property', name: node.key?.name ?? node.key?.value })],
   [/FunctionExpression/,
     ({ id, ...node }) =>
-      ({ ...node, type: 'function', kind: 'expression', name: id?.name, children: id ? [id] : [] })
+      ({ id, ...node, type: 'function', kind: 'expression', name: id?.name })
   ],
 
   // patterns
@@ -44,7 +44,7 @@ export const rules: TransformerRule[] = [
 
   // exports
   [/ExportAllDeclaration/, node =>
-    ({ ...node, type: 'export', kind: 'all', from: node.source?.value })
+    ({ ...node, type: 'export', kind: 'all', from: node.source.value })
   ],
   [/ExportDefaultDeclaration/,
     ({ declaration, ...node }) =>

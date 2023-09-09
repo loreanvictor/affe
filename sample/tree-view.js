@@ -1,5 +1,5 @@
-import { define, useDispatch, onRendered } from 'https://esm.sh/minicomp?bundle'
-import { html, ref } from 'https://esm.sh/rehtm?bundle'
+import { define, useDispatch, onRendered } from 'https://esm.sh/minicomp'
+import { html, ref } from 'https://esm.sh/rehtm'
 import { useObservation } from './use-observation'
 import style from './tree-view.css?inline'
 
