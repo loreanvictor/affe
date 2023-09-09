@@ -16,7 +16,7 @@ const _DefaultKeep = () => ['range']
 function _selectable(
   u: typeof import('unist-builder').u,
   tree: any,
-  options: BuildSelectableOptions = {}
+  options: BuildSelectableOptions,
 ): Node {
   const transformer = options.transformer ?? _DefaultTransformer
   const keep = options.keep ?? _DefaultKeep
