@@ -9,7 +9,7 @@
 <img src="./logo-dark.svg#gh-dark-mode-only" height="72px"/>
 <img src="./logo-light.svg#gh-light-mode-only" height="72px"/>
 
-AST querying for lazy people.
+Query any object with [CSS-like](https://github.com/syntax-tree/unist-util-select) selectors. Particularly useful for querying [ASTs](https://en.wikipedia.org/wiki/Abstract_syntax_tree) of programming languages.
 
 ```js
 import { js, pipe, select, all } from 'affe'
@@ -22,11 +22,16 @@ const config = await readFile('eslint.config.js', 'utf8')
 //    in the config.
 //
 const rules = await pipe(
+  // 👇 parse the config as JS to AST
   js(config),
+
+  // 👇 select linting rules
   select(`
     export property[name=rules]
     > value > object > property > key > *
   `),
+
+  // 👇 get all of the names of the rules
   all(),
 )
 
@@ -70,11 +75,9 @@ import { js } from 'https://esm.sh/affe'
 
 # Usage
 
-`affe` simplifies _ANY_ syntax tree into a format that can be queried with a CSS-like syntax. It also provides tooling for
-further simplification of ASTs of a specific language
-for more convenience.
+`affe` transforms objects to a DOM-inspired format, so you can query them with CSS-like selectors. This can be paired with parsers of differnt languages to conveniently inspect code written in said language.
 
-`affe` provides support for JavaScript/JSX out of the box, but you can easily add support for any other language.
+`affe` provides out-of-the-box support for JS/JSX (using [espree](https://github.com/eslint/espree)):
 
 ```js
 import { jsx, pipe, select, pick, all } from 'affe'
@@ -101,6 +104,106 @@ console.log(params)
 ```
 
 <br>
+
+👉 Use `tag` to create a language tag for any other language:
+
+```js
+import * as csstree from 'css-tree'
+import { tag } from 'affe'
+
+
+export const css = tag({
+  parse: csstree.parse,
+})
+```
+Which can then be used like this:
+```js
+import { css } from './css'
+import { pipe, select, pick, all } from 'affe'
+
+
+const code = css`
+  .foo {
+    color: red;
+  }
+
+  .bar {
+    color: blue;
+  }
+`
+
+const classes = await pipe(
+  code,
+  select('ClassSelector'),
+  pick(node => node.name),
+  all(),
+)
+
+console.log(classess)
+// > [ foo, bar ]
+```
+
+<div align="right">
+
+[**▷ TRY IT**](https://codepen.io/lorean_victor/pen/xxmqppz?editors=0010)
+
+</div>
+
+👉 Use `query` to inspect any object:
+
+```js
+import { pipe, query, select, pick, first } from 'affe'
+
+const graph = {
+  vertices: [
+    {
+      id: 'a',
+      label: 'Node A',
+      edges: [
+        { to: 'a', label: 'loopback' },
+        { to: 'b' }
+      ]
+    },
+    {
+      id: 'b',
+      label: 'Node B',
+      edges: [
+        { to: 'a' }
+      ]
+    }
+  ]
+}
+
+
+// 👇 lets find a node with a labeled edge
+const label = await pipe(
+  query(() => graph),
+  select('node:has(>edges [label])'),
+  pick(node => node.label),
+  first(),
+)
+
+console.log(label)
+// > Node A
+
+// 👇 now lets find nodes with an
+//    unlabeled edge going to them
+const ids = await pipe(
+  query(() => graph),
+  select('edges :not([label])'),
+  pick(node => node.to),
+  all(),
+)
+
+console.log(ids)
+// > [ a, b ]
+```
+
+<div align="right">
+
+[**▷ TRY IT**](https://codepen.io/lorean_victor/pen/MWZprqE?editors=0010)
+
+</div>
 
 # Contribution
 
